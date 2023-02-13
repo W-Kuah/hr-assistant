@@ -2,7 +2,8 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
 
 public class HRStaffPortal extends Instance {
     private Integer numOfApplicants;
@@ -93,7 +94,7 @@ public class HRStaffPortal extends Instance {
         }
 
         command = "";
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         System.out.print("Start Date: ");
         while (true) {
             command = keyboard.nextLine();
@@ -529,20 +530,154 @@ public class HRStaffPortal extends Instance {
                     salary = Integer.toString(displayJob.getSalary());
                 }
                 System.out.println("[" + count + "] " + title + " (" + description + "). " + degree + ". Salary: " + salary + ". Start Date: " + startDate + ".");
+                List<Applicant> applied = new ArrayList<Applicant>();
                 for (JobApplied jobAppliedDisplay : jobAppliedList) {
-                    if (jobAppliedDisplay.getJobID().equals(displayJob)) {
-                        double[] score = new double[jobAppliedDisplay.getApplicantList().size()];
+                    if (jobAppliedDisplay.getJobID().equals(createdAtInteger)) {
+                        List<Integer> applicantIDsForJobList = jobAppliedDisplay.getApplicantList();
+                        for (Applicant applicant: applicantList) {
+                           if(applicantIDsForJobList.contains(applicant.getCreatedAtID())) {
+                                applied.add(applicant);
+                           }
+                            
+                        }
                         
                     }
+                }
+                List<Applicant> chosen = chooseApplicant(applied, displayJob);
+                if (chosen.size() > 0) {
+                    Integer count1 = 1;
+                    for (Applicant chosenApplicant : chosen) {
+                        String lastName = chosenApplicant.getLastName();
+                        String firstName = chosenApplicant.getFirstName();
+                        String careerSummary = "n/a";
+                        String highestDegree = "n/a";
+
+                        String salaryExpectations = "n/a";
+                        String availability = "n/a";
+                        if (chosenApplicant.getCareerSummary() != null) {
+                            careerSummary = chosenApplicant.getCareerSummary();
+                        }
+                        if (chosenApplicant.getHighestDegree() != null) {
+                            highestDegree = chosenApplicant.getHighestDegree();
+                        }
+                        
+                        if (chosenApplicant.getSalaryExpectations() != null) {
+                            salaryExpectations = Integer.toString(chosenApplicant.getSalaryExpectations());
+                        }
+                        if (chosenApplicant.getAvailability() != null) {
+                            availability = formatter.format(chosenApplicant.getAvailability());
+                        }
+
+                        System.out.println("    [" + count1 + "] " + lastName + ", " + firstName + " (" + highestDegree + "): " + careerSummary + ". Salary Expectations: " + salaryExpectations + ". Availability: " + availability + ".");
+                        count1++;
+                    }
+                } else {
+                    System.out.println("    No valid or viable applicants.");
                 }
             }
         }
     }
-    /**
-      * @param 
-      * @return void
-      * @throws
-      **/
+    
+    
+    private List <Applicant> chooseApplicant(List<Applicant> applicantList, Job job) {
+        Double highestScore = 0.25;
+        List <Applicant> chosen = new ArrayList<Applicant>();
+        Hashtable<Applicant, Double> scoreboard = new Hashtable<Applicant, Double>();
+        for (Applicant applicant: applicantList) {
+            scoreboard.put(applicant, (double) 0);
+            if (applicant.getAvailability().compareTo(job.getStartDate()) <= 0) {
+                scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.2);
+            } else {
+                double daysBetween = ChronoUnit.DAYS.between(convertToLocalDate(job.getStartDate()), convertToLocalDate(applicant.getAvailability()));
+                if (daysBetween < 28) {
+                    double part_score = daysBetween * 0.01071428571;
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) part_score);
+                }
+            }
+            if (applicant.getCOMP90007() != null) {
+                Integer scoreCOMP90007 = applicant.getCOMP90007();
+                if (scoreCOMP90007 >= 80) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.0625);
+                } else if (scoreCOMP90007 >= 70) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.046875);
+                } else if (scoreCOMP90007 >= 60) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.031255);
+                } else if (scoreCOMP90007 >= 50) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.015625);
+                }
+            }
+
+            if (applicant.getCOMP90038() != null) {
+                Integer scoreCOMP90038 = applicant.getCOMP90038();
+                if (scoreCOMP90038 >= 80) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.0625);
+                } else if (scoreCOMP90038 >= 70) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.046875);
+                } else if (scoreCOMP90038 >= 60) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.031255);
+                } else if (scoreCOMP90038 >= 50) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.015625);
+                }
+            }
+
+            if (applicant.getCOMP90041() != null) {
+                Integer scoreCOMP90041 = applicant.getCOMP90041();
+                if (scoreCOMP90041 >= 80) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.0625);
+                } else if (scoreCOMP90041 >= 70) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.046875);
+                } else if (scoreCOMP90041 >= 60) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.031255);
+                } else if (scoreCOMP90041 >= 50) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.015625);
+                }
+            }
+
+            if (applicant.getINFO90002() != null) {
+                Integer scoreINFO90002 = applicant.getINFO90002();
+                if (scoreINFO90002 >= 80) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.0625);
+                } else if (scoreINFO90002 >= 70) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.046875);
+                } else if (scoreINFO90002 >= 60) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.031255);
+                } else if (scoreINFO90002 >= 50) {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.015625);
+                }
+            }
+            if (applicant.getSalaryExpectations() != null) {
+                Integer salaryDifference = applicant.getSalaryExpectations() - job.getSalary();
+                if (salaryDifference > 0) {
+                    Double salaryDiffDouble = Double.valueOf(salaryDifference);
+                    Double pointsAwarded = 0.25 - (0.05 * (salaryDiffDouble / 1500));
+                    scoreboard.put(applicant, scoreboard.get(applicant) + pointsAwarded);
+                } else {
+                    scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.25);
+                }
+            } else {
+                scoreboard.put(applicant, scoreboard.get(applicant) + (double) 0.25);
+            }
+        }
+
+        for (Applicant applicant : applicantList) {
+            Double applicantScore = scoreboard.get(applicant);
+            if (applicantScore > highestScore) {
+                highestScore = applicantScore;
+                chosen = new ArrayList<Applicant>();
+                chosen.add(applicant);
+            } else if (applicantScore == highestScore) {
+                chosen.add(applicant);
+            }
+        }
+        return chosen;
+    }
+
+
+    public LocalDate convertToLocalDate(Date dateToConvert) {
+        return LocalDate.ofInstant(
+          dateToConvert.toInstant(), ZoneId.systemDefault());
+    }
+    
     public void displayMenu() {
         System.out.println(Integer.toString(getApplicantsNum()) + " applications received.");
         System.out.println("Please enter one of the following commands to continue:");

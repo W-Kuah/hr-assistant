@@ -431,7 +431,7 @@ abstract class Instance {
         List<JobApplied> temp = new ArrayList<JobApplied>();
         boolean exist = false;
 
-        for (JobApplied oldJobApplied : jobAppliedList) {
+        for (JobApplied oldJobApplied : getJobAppliedList()) {
             if (oldJobApplied.getJobID().equals(destJobID)) {
                 oldJobApplied.addApplicant(newApplicantID);
                 exist = true;
@@ -440,6 +440,8 @@ abstract class Instance {
         }
         if (!exist) {
             JobApplied newJobApp = new JobApplied(destJobID);
+            // System.out.println("Created new ID:" + Integer.toString(destJobID));
+            // System.out.println("Adding Applicant ID:" + Integer.toString(newApplicantID));
             newJobApp.addApplicant(newApplicantID);
             temp.add(newJobApp);
         }

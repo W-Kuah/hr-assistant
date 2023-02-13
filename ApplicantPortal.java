@@ -242,6 +242,7 @@ public class ApplicantPortal extends Instance {
         createdAt = Long.toString(createdAtLong);
         Integer createdAtInteger = Integer.valueOf(createdAt);
         profile.setCreatedAtID(createdAtInteger);
+        this.createdAtID = createdAtInteger;
 
         if (careerSummary.contains(",")) {
             careerSummary = "\"" + careerSummary + "\"";
@@ -360,6 +361,7 @@ public class ApplicantPortal extends Instance {
                             String line = newJobApplied.getJobID() + ",\"";
                             List<Integer> applicantListToWrite = newJobApplied.getApplicantList();
                             for (int pos = 0; pos < applicantListToWrite.size(); pos++) {
+                                // System.out.println(applicantListToWrite.get(pos));
                                 line += Integer.toString(applicantListToWrite.get(pos));
                                 if (pos < applicantListToWrite.size()-1) {
                                     line += ",";
@@ -371,6 +373,9 @@ public class ApplicantPortal extends Instance {
                         }      
                     outputStream.flush();
                     outputStream.close();
+                    // File jobAppliedFile = returnFile(getJobAppliedListPath());
+                    // readJobAppliedFile(jobAppliedFile);
+
                     commandIsValid = true;
                     } catch (NumberFormatException e) {
                         System.out.print("Invalid Input! Please enter a valid number to continue: ");

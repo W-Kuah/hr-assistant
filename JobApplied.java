@@ -37,7 +37,7 @@ public class JobApplied {
       * @throws
       **/
     public boolean applicantExist(Integer applicantNum) {
-        for (Integer ID : applicantList) {
+        for (Integer ID : getApplicantList()) {
             if (applicantNum.equals(ID)) {
                 return true;
             }
