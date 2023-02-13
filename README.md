@@ -7,7 +7,9 @@ For the final assignment of the COMP90041 Unit, I designed and implemented a vir
 - Algorithmically analyse applications and matched them their available open positions
 
 
-This project was made to demonstrate BASIC skills in the Java language and showcase a fundamental understanding in the principles of OOP (Abstraction, Inheritance, Encapsulation, Polymorphism...)
+This project was made to demonstrate BASIC skills in the Java language and showcase a fundamental understanding in the principles of OOP (Abstraction, Inheritance, Encapsulation, & Polymorphism).
+
+---Design choices were made in accordance to criteria rather than practicality---
 
 ---------------------------------------------
 Why is this useful:
@@ -17,33 +19,50 @@ Each year companies recieve tens of thousands of job applications from graduatin
 ---------------------------------------------
 How to get started:
 ---------------------------------------------
-1. Create and start virtual environment:
 
+- To use the HR portal
 ```console
-$ python -m venv venv
-$ source venv/bin/activate
+$ java HRAssistant -r hr
 ```
 
-2. Install the modules from 'requirements.txt':
+- To use the HR portal
 ```console
-$ python -m pip install -r requirements.txt
+$ java HRAssistant -r applicant
 ```
 
-2a. (Optional) Initiate/restart database:
+- To call for help (Optional)
 ```console
-$ python build_database.py
+$ java HRAssistant -h
 ```
 
-3. Start Flask App:
+- To assign path to jobs database (Optional)
 ```console
-$ python app.py
+$ java HRAssistant -j jobs.csv
 ```
 
-4. Explore:
-Homepage link: `http://127.0.0.1:8000`
-Swagger UI API documentation link: `http://127.0.0.1:8000/api/ui`
-User list link: `http://127.0.0.1:8000/api/people`
-Notes list link: `http://127.0.0.1:8000/api/notes`
+- To assign path to applications database (Optional)
+```console
+$ java HRAssistant -j applications.csv
+```
+
+- These flags can be used in any permutations (without repetation)
+Example 1:
+```console
+$ java HRAssistant -a applications.csv -j jobs.csv -r hr
+```
+Example 2:
+```console
+$ java HRAssistant -j jobs.csv -r applicant -a applications.csv
+```
+Example 3:
+```console
+$ java HRAssistant -r hr -j jobs.csv -a applications.csv
+```
+
+- Furthermore, there is a standalone flag that displays all arguements
+```console
+$ java HRAssistant -h
+```
 
 
 ---------------------------------------------
