@@ -22,11 +22,6 @@ abstract class Instance {
     
 
     // Constructors for Instance
-    /**
-    * @param  jobListPath, applicantListPath
-    * @return 
-    * @throws IOException, ParseException
-    **/
     public Instance(String jobListPath, String applicantListPath) throws IOException, ParseException {
         if (applicantListPath == null) {
             this.applicantListPath = defaultApplicantListPath;
@@ -54,11 +49,6 @@ abstract class Instance {
 
     // Method to check file exist. If file doesn't exist, create a new file. 
     // If file exists, simply return file.
-    /**
-      * @param String Path
-      * @return File file
-      * @throws IOException
-      **/
     public File returnFile(String path) throws IOException {
         File file = new File(path);
         
@@ -69,11 +59,6 @@ abstract class Instance {
     }
     // Method to transform the applicant file into a list of applicant objects. 
     // Throws errors, skip rows, and skip fields when applicable.
-    /**
-      * @param (File file
-      * @return void
-      * @throws IOException, ParseException
-      **/
     public void readJobFile(File file) throws IOException, ParseException {
         jobList = new ArrayList<Job>();
         String row;
@@ -199,11 +184,6 @@ abstract class Instance {
 
     // Method to transform the applicant file into a list of applicant objects. 
     // Throws errors, skip rows, and skip fields when applicable.
-    /**
-      * @param File file
-      * @return void
-      * @throws IOException, ParseException
-      **/
     public void readApplicantFile(File file) throws IOException, ParseException {
         applicantList = new ArrayList<Applicant>();
         String row;
@@ -391,11 +371,6 @@ abstract class Instance {
     }
 
     // Method to transform the job applied file into a list of job Applied objects.
-    /**
-      * @param File file
-      * @return void
-      * @throws IOException, ParseException
-      **/
     public void readJobAppliedFile(File file) throws IOException, ParseException {
         jobAppliedList = new ArrayList<JobApplied>();
         String row;
@@ -422,11 +397,6 @@ abstract class Instance {
     }
 
     // Add new applicant the the correct jobApplied ID
-    /**
-      * @param Integer newApplicantID, Integer destJobID
-      * @return void
-      * @throws
-      **/
     public void addApplicantTo(Integer newApplicantID, Integer destJobID) {
         List<JobApplied> temp = new ArrayList<JobApplied>();
         boolean exist = false;
@@ -440,8 +410,6 @@ abstract class Instance {
         }
         if (!exist) {
             JobApplied newJobApp = new JobApplied(destJobID);
-            // System.out.println("Created new ID:" + Integer.toString(destJobID));
-            // System.out.println("Adding Applicant ID:" + Integer.toString(newApplicantID));
             newJobApp.addApplicant(newApplicantID);
             temp.add(newJobApp);
         }
@@ -452,14 +420,8 @@ abstract class Instance {
         }
 
     }
-    // Create the matchmaking function for the HRStaffPortal and the Audit
     
     // Check if date is a valid pattern
-    /**
-      * @param String dateString
-      * @return boolean
-      * @throws
-      **/
     public boolean checkDatePattern(String dateString) {
         if (DATE_PATTERN.matcher(dateString).matches()) {
             return true;
@@ -468,11 +430,6 @@ abstract class Instance {
     }
 
     // Check if date is valid
-    /**
-      * @param String dateString
-      * @return boolean
-      * @throws
-      **/
     public boolean checkDateValidity(String dateString) {
         SimpleDateFormat datePattern = new SimpleDateFormat("dd/MM/yy");
         datePattern.setLenient(false);
@@ -484,75 +441,42 @@ abstract class Instance {
         }
     }
 
-    /**
-      * @param Job job
-      * @return void
-      * @throws
-      **/
+
     public void addJob(Job job) {
         jobList.add(job);
     }
 
-    /**
-      * @param Applicant applicant
-      * @return void
-      * @throws
-      **/
+
     public void addApplicant(Applicant applicant) {
         applicantList.add(applicant);
     }
     
     // Getter Instance variables
-    /**
-      * @param
-      * @return String jobListPath
-      * @throws 
-      **/
     public String getJobListPath() {
         return jobListPath;
     }
 
-    /**
-      * @param
-      * @return String applicantListPath
-      * @throws
-      **/
+
     public String getApplicantListPath() {
         return applicantListPath;
     }
 
-    /**
-      * @param
-      * @return String jobAppliedListPath
-      * @throws
-      **/
+
     public String getJobAppliedListPath() {
         return jobAppliedListPath;
     }
 
-    /**
-      * @param
-      * @return List<Job> jobList
-      * @throws
-      **/
+
     public List<Job> getJobList() {
         return jobList;
     }
 
-    /**
-      * @param
-      * @return List<Applicant>
-      * @throws
-      **/
+
     public List<Applicant> getApplicantList() {
         return applicantList;
     }
 
-    /**
-      * @param
-      * @return List<JobApplied>
-      * @throws
-      **/
+
     public List<JobApplied> getJobAppliedList() {
         return jobAppliedList;
     }

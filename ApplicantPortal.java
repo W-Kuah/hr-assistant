@@ -11,11 +11,7 @@ public class ApplicantPortal extends Instance {
     private Integer availableJobs;
     private Integer applicationsSubmitted;
 
-    /**
-    * @param String jobListPath, String applicantListPath
-    * @return 
-    * @throws IOException, ParseException
-    **/
+
     public ApplicantPortal(String jobListPath, String applicantListPath) throws IOException, ParseException {
         super(jobListPath, applicantListPath);
         this.profileCreated = false;
@@ -24,11 +20,6 @@ public class ApplicantPortal extends Instance {
         this.applicationsSubmitted = 0;
     }
 
-    /**
-    * @param Scanner keyboard
-    * @return void
-    * @throws IOException, ParseException
-    **/
     public void createApplication(Scanner keyboard) throws IOException, ParseException {
         String createdAt = "";
         String lastName = "";
@@ -257,11 +248,7 @@ public class ApplicantPortal extends Instance {
         profileCreated = true;
         
     }
-    /**
-    * @param Scanner keyboard
-    * @return void
-    * @throws
-    **/
+
     public void listJobs(Scanner keyboard) {
         List<Job> jobList = getJobList();
         List<JobApplied> jobAppliedList = getJobAppliedList();
@@ -392,11 +379,6 @@ public class ApplicantPortal extends Instance {
         }
     }
 
-    /**
-    * @param
-    * @return void
-    * @throws
-    **/
     public void displayMenu() {
         System.out.println(Integer.toString(getAvailableJobs()) + " jobs available. " + Integer.toString(getApplicationsSubmitted()) + " applications submitted.");
         System.out.println("Please enter one of the following commands to continue:");
@@ -408,27 +390,15 @@ public class ApplicantPortal extends Instance {
     }
 
     // Getter variables for the Applicant Portal
-    /**
-    * @param
-    * @return Integer availableJobs
-    * @throws
-    **/
+
     public Integer getAvailableJobs() {
         return availableJobs;
     }
-    /**
-    * @param
-    * @return Integer applicationsSubmitted
-    * @throws
-    **/
+
     public Integer getApplicationsSubmitted() {
         return applicationsSubmitted;
     }
-    /**
-    * @param keyboard
-    * @return boolean profileCreated
-    * @throws IOException, ParseException
-    **/
+
     public boolean getProfileCreated() {
         return profileCreated;
     }

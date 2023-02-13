@@ -85,11 +85,7 @@ public class HRAssistant {
                   }
             }
       }
-      /**
-      * @param String jFlag, String aFlag
-      * @return void
-      * @throws IOException, ParseException
-      **/
+
       public static void runApplicant(String jFlag, String aFlag) throws IOException, ParseException {
             Scanner keyboard = new Scanner(System.in);
             displayWelcomeMessage("welcome_applicant.ascii");
@@ -121,11 +117,7 @@ public class HRAssistant {
             System.out.println();
             
       }
-      /**
-      * @param String jFlag, String aFlag
-      * @return void
-      * @throws IOException, ParseException
-      **/
+
       public static void runHR(String jFlag, String aFlag) throws IOException, ParseException {
             Scanner keyboard = new Scanner(System.in);
             displayWelcomeMessage("welcome_hr.ascii");
@@ -162,19 +154,11 @@ public class HRAssistant {
             }
             System.out.println();
       }
-      /**
-      * @param String jFlag, String aFlag
-      * @return void
-      * @throws IOException, ParseException
-      **/
+
       public static void runAudit(String jFlag, String aFlag) {
             System.out.println("Audit role!");
       }
-      /**
-      * @param 
-      * @return void
-      * @throws 
-      **/
+
       public static void callHelp() {
             System.out.println("HRAssistant - COMP90041 - Final Project");
             System.out.println();
@@ -187,11 +171,7 @@ public class HRAssistant {
             System.out.println("    -h or --help            Optional: print Help (this message) and exit");
       }
 
-      /**
-      * @param String filename
-      * @return void
-      * @throws
-      **/
+
       private static void displayWelcomeMessage(String filename) {
 
             Scanner inputStream = null;

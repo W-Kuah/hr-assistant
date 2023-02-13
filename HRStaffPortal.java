@@ -8,21 +8,12 @@ import java.time.temporal.ChronoUnit;
 public class HRStaffPortal extends Instance {
     private Integer numOfApplicants;
 
-    /**
-    * @param  jobListPath, applicantListPath
-    * @return 
-    * @throws IOException, ParseException
-    **/
+
     public HRStaffPortal(String jobListPath, String applicantListPath) throws IOException, ParseException {
         super(jobListPath, applicantListPath);
         this.numOfApplicants = getApplicantList().size();
     }
 
-    /**
-      * @param Scanner keyboard
-      * @return void
-      * @throws IOException, ParseException
-      **/
     public void createJob(Scanner keyboard) throws IOException, ParseException {
         
         String createdAt = "";
@@ -94,7 +85,6 @@ public class HRStaffPortal extends Instance {
         }
 
         command = "";
-        // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         System.out.print("Start Date: ");
         while (true) {
             command = keyboard.nextLine();
@@ -125,11 +115,7 @@ public class HRStaffPortal extends Instance {
         addJob(job);
 
     }
-    /**
-      * @param
-      * @return void
-      * @throws
-      **/
+
     public void listJobs() {
         List<Job> jobList = getJobList();
         List<Applicant> applicantList = getApplicantList();
@@ -230,11 +216,7 @@ public class HRStaffPortal extends Instance {
             }
         }
     }
-    /**
-      * @param
-      * @return void
-      * @throws
-      **/
+
     public void listApplicants(){
         List<Applicant> applicantList = getApplicantList();
         
@@ -333,11 +315,7 @@ public class HRStaffPortal extends Instance {
             }
         }
     }
-    /**
-      * @param Scanner keyboard
-      * @return void
-      * @throws
-      **/
+
     public void filterApplicants(Scanner keyboard) {
         List<Applicant> applicantList = getApplicantList();
         List<Applicant> displayApplicants = new ArrayList<Applicant>();
@@ -476,11 +454,7 @@ public class HRStaffPortal extends Instance {
         
         
     }
-    /**
-      * @param ArrayList<Double> numList
-      * @return double
-      * @throws
-      **/
+
     public double calculateWAM(ArrayList<Double> numList) {
         if (numList.size() == 0) {
             return 0.0;
@@ -494,11 +468,7 @@ public class HRStaffPortal extends Instance {
             return total / count;
         }
     }
-    /**
-      * @param
-      * @return void
-      * @throws
-      **/
+
     public void matchmake() {
         List<JobApplied> jobAppliedList = getJobAppliedList();
         List<Job> jobList = getJobList();
@@ -690,21 +660,11 @@ public class HRStaffPortal extends Instance {
     }
 
     // Setter methods for HRStaffPortal
-    /**
-      * @param 
-      * @return void
-      * @throws
-      **/
     public void setApplicantsNum() {
         this.numOfApplicants = getApplicantList().size();
     }
 
     // Getter methods for HRStaffPortal
-    /**
-      * @param 
-      * @return Integer numOfApplicants
-      * @throws
-      **/
     public Integer getApplicantsNum() {
         return numOfApplicants;
     }
